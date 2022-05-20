@@ -2,8 +2,9 @@
 {
     public partial class Atom
     {
-        public class MovieHeaderAtomData
+        public class MovieHeader
         {
+            //mvhd
             public Byte Version { get; set; }
             public UInt32 CreationTime { get; set; }
             public UInt32 ModificationTime { get; set; }
@@ -19,9 +20,8 @@
             public UInt32 CurrentTime { get; set; }
             public UInt32 NextTrackID { get; set; }
 
-            public MovieHeaderAtomData(byte[] bytes)
+            public MovieHeader(byte[] bytes)
             {
-
                 Version = bytes[0];
                 CreationTime =      BitConverter.ToUInt32(Utility.ReverseRange(bytes[4..8]));
                 ModificationTime =  BitConverter.ToUInt32(Utility.ReverseRange(bytes[8..12]));

@@ -5,18 +5,20 @@
         public ulong Index { get; set; }
         public ulong Length { get; set; }
         public string Type { get; set; }
-        
-        
+
+
         public bool IsContainer { get => IsContainerAtom(Type); }
         public ulong DataStart { get => Index + 8; }
         public ulong DataEnd { get => Index + Length; }
-        
-        
-        public Atom(ulong index, ulong length, string type)
+        public byte[] DataRaw { get; set; }
+        public object Data { get; set; }
+
+        public Atom(ulong index, ulong length, string type, byte[] bytes)
         {
             Index = index;
             Length = length;
             Type = type;
+            DataRaw = bytes[(int)DataStart..(int)DataEnd];
         }
 
         public Atom[] Children { get; set; }
@@ -39,10 +41,9 @@
             return false;
         }
 
-        public class TrackHeaderAtom
+        public class ColorTable
         {
-
+            //ctab
         }
-
     }
 }

@@ -21,15 +21,47 @@ namespace Mp4Reader
             ulong index = 0;
 
             var rootAtoms = ReadAtoms(index, (ulong)bytes.Length, bytes);
-            var recAtoms = ReadAtomsRecursive(index, (ulong)bytes.Length, bytes,rootAtoms);
-            Atom.MovieHeaderAtomData mvhd = new Atom.MovieHeaderAtomData(bytes[(int)rootAtoms[2].Children[0].DataStart..(int)rootAtoms[2].Children[0].DataEnd]);
+            ReadAtomsRecursive(index, (ulong)bytes.Length, bytes,rootAtoms);
+            var leafs = GetLeafAtoms(rootAtoms);
+            AssignLeafsAtomClasses(leafs);
         }
         public void Write()
         {
 
         }
         
-        private Atom[] ReadAtomsRecursive(ulong start, ulong end, byte[] bytes, Atom[] atoms)
+        private void AssignLeafsAtomClasses(Atom[] atoms)
+        {
+            for(int i = 0; i < atoms.Length; i++)
+            {
+                if (atoms[i].Type == "mvhd") atoms[i].Data = new Atom.MovieHeader(atoms[i].DataRaw);
+                if (atoms[i].Type == "tkhd") atoms[i].Data = new Atom.TrackHeader(atoms[i].DataRaw);
+                if (atoms[i].Type == "elst") atoms[i].Data = new Atom.EditList(atoms[i].DataRaw);
+                if (atoms[i].Type == "clef" || atoms[i].Type == "prof" || atoms[i].Type == "enof") 
+                    atoms[i].Data = new Atom.EditList(atoms[i].DataRaw);
+            }
+        }
+        private Atom[] GetLeafAtoms(Atom[] atoms)
+        {
+            List<Atom> result = new List<Atom>();
+            for(int i = 0; i < atoms.Length; i++)
+            {
+                if(atoms[i].Children == null)
+                {
+                    result.Add(atoms[i]);
+                }
+                else
+                {
+                    var l = GetLeafAtoms(atoms[i].Children);
+                    for(int j = 0; j <l.Length; j++)
+                    {
+                        result.Add(l[j]);
+                    }
+                }
+            }
+            return result.ToArray();
+        }
+        private void ReadAtomsRecursive(ulong start, ulong end, byte[] bytes, Atom[] atoms)
         {
             for(int i = 0; i < atoms.Length; i++)
             {
@@ -46,7 +78,6 @@ namespace Mp4Reader
                         ReadAtomsRecursive(atoms[i].Children[j].DataStart, atoms[i].Children[j].DataEnd, bytes, atoms[i].Children);
                 }
             }
-            return atoms;
         }
         private Atom[] ReadAtoms(ulong start, ulong end, byte[] bytes)
         {
@@ -79,7 +110,7 @@ namespace Mp4Reader
                 length = BitConverter.ToUInt64(size);   
             }
 
-            return new Atom(start,length,type);
+            return new Atom(start, length, type, original);
         }
 
     }
