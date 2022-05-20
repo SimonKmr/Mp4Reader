@@ -1,0 +1,27 @@
+﻿namespace Mp4Reader
+{
+    public partial class Atom
+    {
+        public class ColorTable
+        {
+            //ctab
+            public UInt32 ColorTableSeed { get; set; }
+            public UInt16 ColorTableFlags { get; set; }
+            public UInt16 ColorTableSize { get; set; }
+            public UInt16[] ColorArray { get; set; }
+
+            public ColorTable(byte[] bytes)
+            {
+                ColorTableSeed = BitConverter.ToUInt32(Utility.ReverseRange(bytes[0..4]));
+                ColorTableFlags = BitConverter.ToUInt16(Utility.ReverseRange(bytes[4..6]));
+                ColorTableSize = BitConverter.ToUInt16(Utility.ReverseRange(bytes[6..8]));
+                
+                ColorArray = new UInt16[4];
+                ColorArray[0] = BitConverter.ToUInt16(Utility.ReverseRange(bytes[8..12]));
+                ColorArray[1] = BitConverter.ToUInt16(Utility.ReverseRange(bytes[12..16]));
+                ColorArray[2] = BitConverter.ToUInt16(Utility.ReverseRange(bytes[16..20]));
+                ColorArray[3] = BitConverter.ToUInt16(Utility.ReverseRange(bytes[20..24]));
+            }
+        }
+    }
+}
