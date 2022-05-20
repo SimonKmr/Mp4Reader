@@ -29,14 +29,14 @@
             public class TableContent
             {
                 public UInt32 TrackDuration { get; set; }
-                public UInt32 MediaTime { get; set; }
+                public Int32 MediaTime { get; set; }
                 public UInt32 MediaRate { get; set; }
 
 
                 public TableContent(byte[] bytes)
                 {
                     TrackDuration = BitConverter.ToUInt32(Utility.ReverseRange(bytes[0..4]));
-                    MediaTime = BitConverter.ToUInt32(Utility.ReverseRange(bytes[4..8]));
+                    MediaTime = BitConverter.ToInt32(Utility.ReverseRange(bytes[4..8]));
                     MediaRate = BitConverter.ToUInt32(Utility.ReverseRange(bytes[8..12]));
                 }
             }

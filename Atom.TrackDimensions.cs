@@ -15,8 +15,8 @@
             public TrackDimensions(byte[] bytes)
             {
                 Version = bytes[0];
-                Width = BitConverter.ToUInt32(Utility.ReverseRange(bytes[8..4]));
-                Height = BitConverter.ToUInt32(Utility.ReverseRange(bytes[12..8]));
+                Width = BitConverter.ToUInt32(Utility.ReverseRange(bytes[4..8]));
+                Height = BitConverter.ToUInt32(Utility.ReverseRange(bytes[8..12]));
             }
         }
     }
