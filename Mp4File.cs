@@ -39,6 +39,11 @@ namespace Mp4Reader
                 if (atoms[i].Type == "elst") atoms[i].Data = new Atom.EditList(atoms[i].DataRaw);
                 if (atoms[i].Type == "clef" || atoms[i].Type == "prof" || atoms[i].Type == "enof") 
                     atoms[i].Data = new Atom.EditList(atoms[i].DataRaw);
+                if (atoms[i].Type == "mdhd") atoms[i].Data = new Atom.MediaHeader(atoms[i].DataRaw);
+                if (atoms[i].Type == "hdlr") atoms[i].Data = new Atom.HandlerReference(atoms[i].DataRaw);
+                if (atoms[i].Type == "smhd") atoms[i].Data = new Atom.SoundMediaInformationHeader(atoms[i].DataRaw);
+                if (atoms[i].Type == "dref") atoms[i].Data = new Atom.DataReference(atoms[i].DataRaw);
+                if (atoms[i].Type == "ctab") atoms[i].Data = new Atom.ColorTable(atoms[i].DataRaw);
             }
         }
         private Atom[] GetLeafAtoms(Atom[] atoms)
