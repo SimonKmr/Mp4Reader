@@ -17,10 +17,10 @@
                 ColorTableSize = BitConverter.ToUInt16(Utility.ReverseRange(bytes[6..8]));
                 
                 ColorArray = new UInt16[4];
-                ColorArray[0] = BitConverter.ToUInt16(Utility.ReverseRange(bytes[8..12]));
-                ColorArray[1] = BitConverter.ToUInt16(Utility.ReverseRange(bytes[12..16]));
-                ColorArray[2] = BitConverter.ToUInt16(Utility.ReverseRange(bytes[16..20]));
-                ColorArray[3] = BitConverter.ToUInt16(Utility.ReverseRange(bytes[20..24]));
+                ColorArray[0] = BitConverter.ToUInt16(Utility.ReverseRange(bytes[8..10]));
+                ColorArray[1] = BitConverter.ToUInt16(Utility.ReverseRange(bytes[10..12]));
+                ColorArray[2] = BitConverter.ToUInt16(Utility.ReverseRange(bytes[12..14]));
+                ColorArray[3] = BitConverter.ToUInt16(Utility.ReverseRange(bytes[14..16]));
             }
         }
     }
