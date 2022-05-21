@@ -48,8 +48,8 @@ namespace Mp4Reader
                 if (atoms[i].Type == "stsc") atoms[i].Data = new Atom.SampleToChunk(atoms[i].DataRaw);
                 if (atoms[i].Type == "stsd") atoms[i].Data = new Atom.SampleDescription(atoms[i].DataRaw); //not completely Implemented Missing Media Data Types
                 if (atoms[i].Type == "stsz") atoms[i].Data = new Atom.SampleSize(atoms[i].DataRaw);
-                if (atoms[i].Type == "stco") atoms[i].Data = null; //= new Atom.SampleDescription(atoms[i].DataRaw);
-                if (atoms[i].Type == "vmhd") atoms[i].Data = null; //= new Atom.SampleDescription(atoms[i].DataRaw);
+                if (atoms[i].Type == "stco") atoms[i].Data = new Atom.ChunkOffset(atoms[i].DataRaw); //= new Atom.SampleDescription(atoms[i].DataRaw);
+                if (atoms[i].Type == "vmhd") atoms[i].Data = new Atom.VideoMediaInformationHeader(atoms[i].DataRaw);
                 if (atoms[i].Type == "stss") atoms[i].Data = null; //= new Atom.SampleDescription(atoms[i].DataRaw);
                 if (atoms[i].Type == "ctts") atoms[i].Data = null; //= new Atom.SampleDescription(atoms[i].DataRaw);
             }
