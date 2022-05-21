@@ -45,6 +45,7 @@ namespace Mp4Reader
                 if (atoms[i].Type == "dref") atoms[i].Data = new Atom.DataReference(atoms[i].DataRaw);
                 if (atoms[i].Type == "ctab") atoms[i].Data = new Atom.ColorTable(atoms[i].DataRaw);
                 if (atoms[i].Type == "stts") atoms[i].Data = new Atom.TimeToSample(atoms[i].DataRaw);
+                if (atoms[i].Type == "stsc") atoms[i].Data = new Atom.SampleToChunk(atoms[i].DataRaw);
             }
         }
         private Atom[] GetLeafAtoms(Atom[] atoms)
