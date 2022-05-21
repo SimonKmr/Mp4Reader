@@ -40,10 +40,5 @@
             }
             return false;
         }
-
-        public class ColorTable
-        {
-            //ctab
-        }
     }
 }
