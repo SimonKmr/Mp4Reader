@@ -15,7 +15,7 @@ namespace Mp4Reader
             Path = path;
         }
 
-        public void Read()
+        public Atom[] Read()
         {
             var bytes = File.ReadAllBytes(Path);
             ulong index = 0;
@@ -24,10 +24,11 @@ namespace Mp4Reader
             ReadAtomsRecursive(index, (ulong)bytes.Length, bytes,rootAtoms);
             var leafs = GetLeafAtoms(rootAtoms);
             AssignLeafsAtomClasses(leafs);
+            return rootAtoms;
         }
         public void Write()
         {
-
+            throw new NotImplementedException();
         }
         
         private void AssignLeafsAtomClasses(Atom[] atoms)
@@ -54,7 +55,7 @@ namespace Mp4Reader
                 if (atoms[i].Type == "ctts") atoms[i].Data = new Atom.CompositionOffset(atoms[i].DataRaw);
             }
         }
-        private Atom[] GetLeafAtoms(Atom[] atoms)
+        public static Atom[] GetLeafAtoms(Atom[] atoms)
         {
             List<Atom> result = new List<Atom>();
             for(int i = 0; i < atoms.Length; i++)
@@ -74,7 +75,7 @@ namespace Mp4Reader
             }
             return result.ToArray();
         }
-        private void ReadAtomsRecursive(ulong start, ulong end, byte[] bytes, Atom[] atoms)
+        private static void ReadAtomsRecursive(ulong start, ulong end, byte[] bytes, Atom[] atoms)
         {
             for(int i = 0; i < atoms.Length; i++)
             {
@@ -92,7 +93,7 @@ namespace Mp4Reader
                 }
             }
         }
-        private Atom[] ReadAtoms(ulong start, ulong end, byte[] bytes)
+        private static Atom[] ReadAtoms(ulong start, ulong end, byte[] bytes)
         {
             List<Atom> atoms = new List<Atom>();
             ulong index = start;
@@ -104,7 +105,7 @@ namespace Mp4Reader
             }
             return atoms.ToArray();
         }
-        private Atom ReadAtomHead(ulong start, byte[] original)
+        private static Atom ReadAtomHead(ulong start, byte[] original)
         {
             byte[] size = new byte[8];
             for (ulong i = 0; i < 4; i++) size[i + 4] = original[i + start];
