@@ -51,7 +51,7 @@ namespace Mp4Reader
                 if (atoms[i].Type == "stco") atoms[i].Data = new Atom.ChunkOffset(atoms[i].DataRaw);
                 if (atoms[i].Type == "vmhd") atoms[i].Data = new Atom.VideoMediaInformationHeader(atoms[i].DataRaw);
                 if (atoms[i].Type == "stss") atoms[i].Data = new Atom.SyncSample(atoms[i].DataRaw);
-                if (atoms[i].Type == "ctts") atoms[i].Data = null; //= new Atom.SampleDescription(atoms[i].DataRaw);
+                if (atoms[i].Type == "ctts") atoms[i].Data = new Atom.CompositionOffset(atoms[i].DataRaw);
             }
         }
         private Atom[] GetLeafAtoms(Atom[] atoms)
