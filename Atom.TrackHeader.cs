@@ -4,6 +4,7 @@
     {
         public class TrackHeader
         {
+            public const string Type = "tkhd";
             //tkhd
             //https://developer.apple.com/library/archive/documentation/QuickTime/QTFF/QTFFChap2/qtff2.html#//apple_ref/doc/uid/TP40000939-CH204-BBCEIDFA
             public Byte Version { get; set; }

@@ -4,6 +4,7 @@
     {
         public class MediaHeader
         {
+            public const string Type = "mdhd";
             //mdhd
             public Byte Version { get; set; }
             public UInt32 CreationTime { get; set; }

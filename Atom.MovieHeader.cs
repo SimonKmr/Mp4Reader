@@ -4,6 +4,7 @@
     {
         public class MovieHeader
         {
+            public const string Type = "mvhd";
             //mvhd
             public Byte Version { get; set; }
             public UInt32 CreationTime { get; set; }

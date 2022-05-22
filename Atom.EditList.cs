@@ -4,6 +4,7 @@
     {
         public class EditList
         {
+            public const string Type = "elst";
             //elst
             public Byte Version { get; set; }
             public Int32 EntryCount { get; set; }

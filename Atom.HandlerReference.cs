@@ -7,6 +7,7 @@ namespace Mp4Reader
 
         public class HandlerReference
         {
+            public const string Type = "hdlr";
             //hdlr
             public Byte Version { get; set; }
             public UInt32 ComponentType { get; set; }

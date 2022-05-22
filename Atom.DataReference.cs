@@ -6,6 +6,7 @@ namespace Mp4Reader
     {
         public class DataReference
         {
+            public const string Type = "dref";
             public Byte Version { get; set; }
             public UInt32 Entries { get; set; }
             public DataRef[] DataReferences { get; set; }

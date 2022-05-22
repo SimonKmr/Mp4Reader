@@ -4,6 +4,7 @@
     {
         public class SoundMediaInformationHeader
         {
+            public const string Type = "smhd";
             //smhd
             public Byte Version { get; set; }
             public UInt16 Balance { get; set; }
