@@ -4,7 +4,7 @@ namespace Mp4Reader
 {
     public partial class Atom
     {
-        public class SampleDescription
+        public partial class SampleDescription
         {
             public Byte Version { get; set; }
             public UInt32 Entries { get; set; }
@@ -29,19 +29,26 @@ namespace Mp4Reader
                 SampleDescriptionTable = entries.ToArray();
             }
 
-            public class Entry
+            public partial class Entry
             {
                 public UInt32 Size { get; set; }
-                public UInt32 DataFormat { get; set; }
+                public String DataFormat { get; set; }
                 public UInt16 DataReferenceIndex { get; set; }
                 public object MediaData { get; set; }
 
                 public Entry(byte[] bytes)
                 {
                     Size = BitConverter.ToUInt32(Utility.ReverseRange(bytes[0..4]));
-                    DataFormat = BitConverter.ToUInt32(Utility.ReverseRange(bytes[4..8]));
+                    DataFormat = Encoding.UTF8.GetString(bytes, 4, 4);
                     DataReferenceIndex = BitConverter.ToUInt16(Utility.ReverseRange(bytes[14..16]));
-                    //throw new NotImplementedException();
+                    MediaData = AssignMediaData(DataFormat, bytes[16..bytes.Length]);
+                }
+
+                private object AssignMediaData(string dataFormat, byte[] bytes)
+                {
+                    if (dataFormat.Equals("avc1")) return new VideoMedia(bytes);
+                    if (dataFormat.Equals("mp4a")) return new SoundMedia(bytes);
+                    return null;
                 }
             }
         }
